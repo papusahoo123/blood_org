@@ -1,0 +1,597 @@
+intall all
+
+create a navbar call in layout 
+
+then the navbar have a addNew option link 
+the addNew(app/addNew)  file the new data option
+
+
+create a TopicsList(comp/TopicsList) call page 
+the TopicsList have all data show(name, age, etc) and  delete (function) and edit (Link) option
+
+ 
+
+the delete   option inside TopicsList page naa
+
+create a RemoveBut.jsx function   in side the comp/RemoveBut
+it simple delete the data
+
+also have an edit  option in TopicsList naa <Link  href= "editTopic/1" > img </Link>
+create editTopic/[id]/page.jsx don't edit her just call the comp/EditForm.jsx
+the EditForm.jsx real edit so similar to addNew
+
+
+
+
+
+
+
+
+
+structure form
+1.layout.jsx
+import Navbar from "./comp/Navbar";
+
+  return (
+    <html
+     
+      <body>
+         <Navbar />
+        {children}
+        
+        </body>
+    </html>
+  );
+}
+
+
+
+
+the comp/Navbar
+
+"use client";
+
+import Link from "next/link";
+import Image from "next/image";
+import { useState } from "react";
+//import { Menu, X } from "lucide-react";
+
+export default function Navbar() {
+    const [open, setOpen] = useState(false);
+
+    return (
+        <nav className="sticky top-0 z-50 bg-blue-200 backdrop-blur-md shadow-lg border-b border-blue-100">
+            <div className="max-w-7xl mx-auto flex items-center justify-between px-6 md:px-8 py-3">
+
+                {/* Logo */}
+                <div className="flex items-center gap-3">
+                    <Link href='/'>
+                        <Image
+
+                            src={"/blood.png"}
+                            alt="Logo"
+                            width={50}
+                            height={50}
+                            className="rounded-full object-cover border-2 border-blue-500 shadow-md"
+                        />
+                    </Link>
+                    <h1 className="text-xl md:text-2xl font-bold text-blue-700 tracking-wide">
+                         Save One Life+
+                    </h1>
+                </div>
+
+                {/* Desktop Links */}
+                <div className="hidden md:flex items-center gap-8 text-gray-700 font-medium text-lg">
+
+                    <Link href="/addYour" className="hover:text-blue-600 transition-all duration-300 relative group text-blue-500">
+                        Add
+                        <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+                    </Link>
+
+                    <Link href="/view" className="hover:text-blue-600 transition-all duration-300 relative group">
+                        View
+                        <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+                    </Link>
+
+                    <Link href="/about" className="hover:text-blue-600 transition-all duration-300 relative group">
+                        About
+                        <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+                    </Link>
+
+                    <Link href="/contact" className="hover:text-blue-600 transition-all duration-300 relative group">
+                        Contact
+                        <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+                    </Link>
+
+                    <Link
+                        href="/insurance"
+                        className="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 transition-all duration-300 shadow-md hover:scale-105"
+                    >
+                        Health Insurance
+                    </Link>
+                </div>
+
+                {/* Mobile Hamburger */}
+                <div className="md:hidden">
+                    <button
+                        onClick={() => setOpen(!open)}
+                        className="text-3xl font-bold text-blue-700"
+                    >
+                        {open ? "✕" : "☰"}
+                    </button>
+                </div>
+            </div>
+
+            {/* Mobile Dropdown */}
+            {open && (
+                <div className="md:hidden bg-white shadow-md px-6 py-4 flex flex-col gap-4 text-gray-700 font-medium text-lg animate-slideDown">
+
+                    <Link href="/addYour" onClick={() => setOpen(false)} className="hover:text-blue-600">Add Your Info</Link>
+                    <Link href="/view" onClick={() => setOpen(false)} className="hover:text-blue-600">View</Link>
+                    <Link href="/about" onClick={() => setOpen(false)} className="hover:text-blue-600">About</Link>
+                    <Link href="/contact" onClick={() => setOpen(false)} className="hover:text-blue-600">Contact</Link>
+
+                    <Link
+                        href="/insurance"
+                        onClick={() => setOpen(false)}
+                        className="bg-blue-600 text-white px-4 py-2 rounded-full text-center hover:bg-blue-700"
+                    >
+                        Health Insurance
+                    </Link>
+                </div>
+            )}
+        </nav>
+    );
+}
+
+
+
+
+comp/topicsList 
+ 
+import { HiPencilAlt } from "react-icons/hi";
+import RemoveBtn from "./RemoveBtn";
+import Link from "next/link";
+
+export default function TopicsList() {
+  return (
+    <>
+      {/* <div className="mb-8">
+        <input type="text" className="bg-gray-400 p-2 rounded" />
+      </div> */}
+
+      <div className="flex flex-row bg-cyan-500 shadow-md w-full p-4 rounded-lg items-center justify-between">
+        
+        <div className="flex gap-8 items-center  justify-between">
+          <p  className="text-1xl font-bold  text-black" > NAME: PAPU SAHOO </p>
+          <p className="text-1xl  font-bold  text-red-300 ">blood type: O+</p>
+          <p className="text-1xl  font-bold   text-black">Mob:- 91xxx xxx31</p>
+          <p className="text-1xl  font-bold  text-black ">Address: Cuttack</p>
+          
+          
+        </div>
+
+        <div className="flex gap-3 items-center">
+          <RemoveBtn />
+          <Link href="/editTopic/1">
+            <HiPencilAlt className="text-gray-800 text-2xl cursor-pointer" />
+          </Link>
+        </div>
+
+      </div>
+    </>
+  );
+}
+
+
+
+
+
+the remove fumction  option inside the TopicsList naa
+com/RemoveBtn
+
+export default function RemoveBtn({onClick}){
+    return(
+        <button onClick={onClick} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+            Remove
+        </button>
+    )
+}
+
+
+
+
+also have edit option   in TopicsList  -->  <Link href="/editTopic/1">
+            <HiPencilAlt className="text-gray-800 text-2xl cursor-pointer" />
+          </Link>
+
+the editTopic/1 Link call -->  
+app/editTopic/[id]/page.jsx
+
+
+import EditTopicForm from "@/app/comp/EditTopicForm";
+export default function EditTopic() {
+
+    return (
+        <>
+         <EditTopicForm />
+    </>
+    )
+}
+
+
+don't edit her just call the EditTopicForm
+there actually edit  
+
+comp/EditTopicForm
+
+export default function  EditTopicForm() {
+
+    return (
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+
+            <form action="/addYour" method="POST" className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-lg">
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+                        Name
+                    </label>
+                    <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" placeholder="Name" />
+                </div>
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+                        Email
+                    </label>
+                    <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Email" />
+                </div>
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phone">
+                        Phone Number
+                    </label>
+                    <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="phone" type="tel" placeholder="Phone Number" />
+                </div>
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="address">
+                        Address
+                    </label>
+                    <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="address" type="text" placeholder="Address" />
+                </div>
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                    UPDATE Your Information
+                </button>
+            </form>
+        </div>
+    )
+}  
+
+
+
+
+
+//app/api/topics/route.js
+for POST , GET, DELETE 
+
+
+import connectDB from "../../../libs/mogoodb";
+import Topic from "../../../models/topic";
+import { NextResponse } from "next/server";
+ 
+ 
+export async function POST(request) {
+
+    try {
+
+        await connectDB();
+
+        const body = await request.json();
+
+        const { name, bloodType, mobile, address } = body;
+
+        await Topic.create({
+            name,
+            bloodType,
+            mobile,
+            address,
+        });
+
+        return NextResponse.json(
+            {
+                message: "Success",
+            },
+            {
+                status: 201,
+            }
+        );
+
+    } catch (error) {
+
+        console.log(error);
+
+        return NextResponse.json(
+            {
+                error: error.message,
+            },
+            {
+                status: 500,
+            }
+        );
+    }
+}
+
+
+export async function GET() {
+
+    try {   
+        await connectDB();
+
+        const topics = await Topic.find();
+        return NextResponse.json(
+            {
+                topics,
+            },
+            {
+                status: 200,
+            }
+        );  
+    } catch (error) {
+
+        console.log(error);
+        return NextResponse.json(
+            {
+                error: error.message,
+            },
+            {
+                status: 500,
+            }
+        );
+    }
+}
+
+
+ 
+
+export async function DELETE(request) {
+
+    try {
+
+        await connectDB();
+
+        const { searchParams } = new URL(request.url);
+
+        const id = searchParams.get("id");
+
+        await Topic.findByIdAndDelete(id);
+
+        return NextResponse.json(
+            {
+                message: "Deleted successfully",
+            },
+            {
+                status: 200,
+            }
+        );
+
+    } catch (error) {
+
+        console.log(error);
+
+        return NextResponse.json(
+            {
+                error: error.message,
+            },
+            {
+                status: 500,
+            }
+        );
+    }
+}
+
+
+//app/api/topics/[id]/route.js
+
+// app/api/topics/[id]/route.js
+
+import connectDB from "../../../../libs/mogoodb";
+import Topic from "../../../../models/topic";
+import { NextResponse } from "next/server";
+ 
+// GET SINGLE TOPIC
+export async function GET(request, { params }) {
+    try {
+        await connectDB();
+
+        const { id } = params;
+
+        const topic = await Topic.findById(id);
+
+        return NextResponse.json(
+            {
+                topic,
+            },
+            {
+                status: 200,
+            }
+        );
+    } catch (error) {
+        return NextResponse.json(
+            {
+                error: error.message,
+            },
+            {
+                status: 500,
+            }
+        );
+    }
+}
+
+// UPDATE TOPIC
+export async function PUT(request, { params }) {
+    try {
+        await connectDB();
+
+        const { id } = params;
+
+        const body = await request.json();
+
+        const updatedTopic = await Topic.findByIdAndUpdate(
+            id,
+            body,
+            { new: true }
+        );
+
+        return NextResponse.json(
+            {
+                message: "Updated Successfully",
+                updatedTopic,
+            },
+            {
+                status: 200,
+            }
+        );
+    } catch (error) {
+        return NextResponse.json(
+            {
+                error: error.message,
+            },
+            {
+                status: 500,
+            }
+        );
+    }
+}
+
+// DELETE TOPIC
+export async function DELETE(request, { params }) {
+    try {
+        await connectDB();
+
+        const { id } = params;
+
+        await Topic.findByIdAndDelete(id);
+
+        return NextResponse.json(
+            {
+                message: "Deleted Successfully",
+            },
+            {
+                status: 200,
+            }
+        );
+    } catch (error) {
+        return NextResponse.json(
+            {
+                error: error.message,
+            },
+            {
+                status: 500,
+            }
+        );
+    }
+}
+
+
+
+
+the final TopicsList 
+
+
+
+import { HiPencilAlt } from "react-icons/hi";
+import RemoveBtn from "./RemoveBtn";
+import Link from "next/link";
+
+const Gettopics = async () => {
+  try {
+    const res = await fetch("http://localhost:3000/api/topics", {
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch topics");
+    }
+
+    return res.json();
+  } catch (error) {
+    console.error("Error fetching topics:", error);
+    return { topics: [] };
+  }
+};
+
+export default async function TopicsList() {
+  const { topics } = await Gettopics();
+
+  return (
+    <>
+      {topics.map((topic) => (
+        <div
+          key={topic._id}
+          className="flex flex-row bg-cyan-500 shadow-md w-full p-4 rounded-lg items-center justify-between mb-4"
+        >
+          <p className="text-1xl font-bold text-black">
+            {topic.name}
+          </p>
+
+          <p className="text-1xl font-bold text-red-300">
+            {topic.bloodType}
+          </p>
+
+          <p className="text-1xl font-bold text-black">
+            {topic.mobile}
+          </p>
+
+          <p className="text-1xl font-bold text-black">
+            {topic.address}
+          </p>
+
+          <div className="flex gap-3 items-center">
+            <RemoveBtn id={topic._id} />
+
+            <Link href={`/editTopic/${topic._id}`}>
+              <HiPencilAlt className="text-gray-800 text-2xl cursor-pointer" />
+            </Link>
+          </div>
+        </div>
+      ))}
+    </>
+  );
+}
+
+
+
+
+
+then call the RemoveBtn for delete
+
+
+"use client";
+
+export default function RemoveBtn({ id }) {
+
+    const removeTopic = async () => {
+        try {
+
+              const confirmDelete = confirm(
+            "Are you sure you want to delete?"
+        );
+
+        if (confirmDelete) {
+
+            await fetch(`http://localhost:3000/api/topics?id=${id}`, {
+                method: "DELETE",
+            });
+
+        }
+
+        }  catch (error) {
+            console.error("Error deleting topic:", error);
+        }
+
+      
+    };
+ 
+
+    return (
+        <button onClick={removeTopic} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+            Delete
+        </button>
+    );
+}

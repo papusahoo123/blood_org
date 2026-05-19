@@ -1,0 +1,165 @@
+psotman  api,testing = http://localhost:3000/api/topics --> no space in the url
+
+
+first install 
+ npx  create-next-app@latest .
+npm i mongoose react-icons
+
+
+1st create Navbar.jsx in comp/Navbar.jsx 
+comp/Navbar --->  call layout.jsx
+
+2nd create TopicsList.jsx in comp/TopicsList.jsx
+comp/TopicsList ---> call page.jsx
+
+creaate a RemoveBut in comp/RemoveBut.jsx
+removeBut.jsx --> call inside TopicsList.jsx
+Then have an  <Link href="/editTopic/1">
+create a   app/editTopic/[id]/page.jsx  just call the <EditTopicForm />  
+the <Link href="/editTopic/1">  have to been in the TopicsList.jsx
+
+
+
+
+1st  app/comp/TopicsList.jsx looks like this
+//TopicsList.jsx
+
+import { HiPencilAlt } from "react-icons/hi";
+import RemoveBtn from "./RemoveBtn";
+import Link from "next/link";
+
+export default function  TopicsList(){
+    return(
+         <>
+          
+        <div className="flex flex-row   bg-cyan-500 shadow-md  w-full p-4 rounded-lg gap-4 items-center justify-between">
+             
+           <div>
+            <h2 className="text-2xl font-bold mb-4 text-white">Topics List</h2>
+            </div>
+
+           <div>
+            <RemoveBtn />
+            <Link href="/editTopic/1">
+            <HiPencilAlt className="text-gray-800 text-2xl cursor-pointer" />
+            </Link>
+           </div>
+            
+         </div>
+
+     </>
+    )
+}
+
+
+comp/Navbar.jsx
+in the navbar.jsx one  option is add (Link href="/addYour")  
+app/addYour/page.jsx
+fill the your information using the form  like name, email, phone number and  ADRESS 
+
+//2nd phese
+it use post method 
+
+
+
+
+
+app/comp/TopicsList.jsx
+in the TopicsList.jsx   two options one is{ remove } and another is edit (Link href="/editTopic/1")
+--> app/editTopic/[id]/page.jsx
+it can call the <EditTopicForm />   
+
+//2nd phese 
+//it use  GET method
+
+
+
+
+//editTopic/[id]/page.jsx
+import EditTopicForm from "@/app/comp/EditTopicForm";
+export default function EditTopic() {
+
+    return (
+        <>
+         <EditTopicForm />
+    </>
+    )
+}
+
+
+
+
+then crete a comp/EditTopicForm.jsx
+same think as addYour form but here update your information instead of add your information
+
+
+
+connect mongodb with next js outside of app
+ 
+
+then create lib/mongodb.js outside the app folder
+for connection with mongodb and export the client and db
+
+then create a model for your data in models/topic.js outside the app folder
+for create Schema and model for your data
+  
+then create api route for your data in app/api/topics/route.js
+POST ,GET, DELETE 
+
+cheke http://localhost:3000/api/topics in postman for get and post and delete all topics 
+
+then for dynamic route for edit topic create a api route in  
+
+app/api/topics/[id]/route.js  
+check http://localhost:3000/api/topics/322e42ew4 in postman sigle topic by id and update topic by id
+for  get put single topic and update topic by id
+
+
+
+phese two 
+connect mongodb data in home page 
+TopicsList.jsx --> get data from mongodb and show in home page
+res = await fetch('http://localhost:3000/api/topics');
+const data = await res.json();
+
+
+call the  delete option 
+in the RemoveBtn.jsx
+fetch('http://localhost:3000/api/topics/322e42ew4', {
+  method: 'DELETE',
+})
+
+
+call the edit option editTopic/[id]/page
+    const res = await fetch(`http://localhost:3000/api/topics/${id}`, {
+            cache: "no-store",
+        });
+
+
+her jsut get data from TopicsList no changes 
+ 
+  <EditTopicForm
+                id={id}
+                name={name}
+                bloodType={bloodType}
+                mobile={mobile}
+                email={email}
+                address={address}
+                message={message}
+     />
+
+
+
+
+it just call the EditTopicFrom 
+
+
+app/EditTopicFrom
+
+haveing a real update data like a from
+
+as same as Add_Your 
+
+  const res = await fetch(`/api/topics/${id}`, {
+                method: "PUT",
+  }
